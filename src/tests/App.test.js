@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen, act } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
 import renderWithRouter from '../renderWithRouter';
@@ -44,16 +44,14 @@ describe('Testa o componente App', () => {
   });
 
   describe('Testa o componente Not Found', () => {
-    it('Mostra a página Not Found caso a rota não seja encontrada:', () => {
+    it('Mostra a página Not Found caso a rota não seja encontrada:', async () => {
       const { history } = renderWithRouter(<App />);
-      act(() => {
-        history.push('xablau');
-      });
+      history.push('xablau');
 
       const { location } = history;
       expect(location.pathname).toBe('/xablau');
 
-      const notFoundMessage = screen.getByRole('heading', { name: /page requested not found/i });
+      const notFoundMessage = await screen.findByRole('heading', { name: /page requested not found/i });
       expect(notFoundMessage).toBeInTheDocument();
     });
   });
