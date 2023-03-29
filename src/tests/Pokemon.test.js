@@ -54,7 +54,7 @@ describe('Testes do componente Pokemon', () => {
     const isFavorite = await screen.findByLabelText(/pokémon favoritado\?/i);
     expect(isFavorite).toBeInTheDocument();
 
-    // expect(screen.getByRole('img', { name: /pikachu is marked as favorite/i })).not.toBeInTheDocument();
+    expect(screen.queryByRole('img', { name: /pikachu is marked as favorite/i })).not.toBeInTheDocument();
 
     userEvent.click(isFavorite);
     expect(isFavorite.checked).toBe(true);
